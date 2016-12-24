@@ -33,7 +33,7 @@
   "directories": {
     "doc": "docs"
   },
-  bin: {
+  "bin": {
     "wmou": "server.js"
   },
   "license": "ISC"
