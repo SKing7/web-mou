@@ -2,7 +2,7 @@
 
 html, body, section, .full-height {
     height: 100%;
-} 
+}
 
 #pad{
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
@@ -19,5 +19,15 @@ html, body, section, .full-height {
 
 #markdown {
     overflow: auto;
-    border-left: 1px solid black;
+    border-left: 1px solid #dad7d7;
+}
+
+#j-save-status  {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.mardown-wrapper {
+  padding: 10px 15px;
 }

@@ -1,7 +1,13 @@
 /* server.js */
 
+var fs = require('fs');
+var path = require('path');
+var touch = require('touch');
 var express = require('express');
 var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+const DOC_PATH = '/docs/';
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -10,35 +16,66 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 // routes for app
-app.get('/', function(req, res) {
-  res.render('pad');
+app.get(DOC_PATH + '(:name)', function (req, res) {
+  var params = req.params;
+  var filePath = normalize(params.name);
+  touch(filePath);
+  fs.readFile(normalize(params.name), function (err, data) {
+    if (!err) {
+      res.render('doc-creator', {
+        markdownContent: data
+      });
+    } else {
+      res.render('404');
+    }
+  });
 });
-app.get('/(:id)', function(req, res) {
-  res.render('pad');
+io.on('connection', function (socket) {
+  socket.on('docSave', function (data) {
+    var fileName = pathToFileName(data.path);
+    var filePath = normalize(fileName);
+    var content = data.content;
+    console.log('saving...:', content);
+
+    saveToFile(filePath, content).then(function (err) {
+      if (err) {
+        socket.emit('docSaveDone', {
+          status: 2,
+          msg: err.msg,
+        });
+      } else {
+        socket.emit('docSaveDone', {
+          status: 1,
+          msg: '',
+        });
+      }
+    });
+  });
 });
-
-// get sharejs dependencies
-var sharejs = require('share');
-
-// set up redis server
-var redisClient;
-console.log(process.env.REDISTOGO_URL);
-if (process.env.REDISTOGO_URL) {
-  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-  redisClient = require("redis").createClient(rtg.port, rtg.hostname);
-  redisClient.auth(rtg.auth.split(":")[1]);
-} else {
-  redisClient = require("redis").createClient();
-}
-
-// options for sharejs 
-var options = {
-  db: {type: 'redis', client: redisClient}
-};
-
-// attach the express server to sharejs
-sharejs.server.attach(app, options);
 
 // listen on port 8000 (for localhost) or the port defined for heroku
 var port = process.env.PORT || 8000;
-app.listen(port);
+server.listen(port);
+
+function pathToFileName(pathStr) {
+  pathStr = pathStr.replace(new RegExp('^' + DOC_PATH), '');
+  return pathStr;
+}
+
+function normalize(fileName) {
+  var paths = [__dirname, 'docs'];
+  if (/\.md$/.test(fileName)) {
+    paths.push(fileName);
+  } else {
+    paths.push(fileName + '.md');
+  }
+  return paths.join('/');
+}
+
+function saveToFile(filePath, content) {
+  return new Promise(function (resolve) {
+    fs.writeFile(filePath, content, function (err) {
+      resolve(err);
+    })
+  });
+}

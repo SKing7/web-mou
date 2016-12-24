@@ -1,6 +1,6 @@
 {
-  "name": "RealtimeMarkdownViewer",
-  "description": "Realtime Markdown Viewer",
+  "name": "markdown-docer",
+  "description": "Markdown Docer",
   "main": "server.js",
   "version": "1.0.0",
   "repository": {
@@ -12,15 +12,14 @@
     "realtime",
     "sharejs"
   ],
-  "author": "Asif Ahmed <asif.h.ahmed@gmail.com>",
+  "author": "sking.pt <sking.pt@gmail.com>",
   "dependencies": {
-    "express": "^4.12.4",
-    "ejs": "^2.3.1",
-    "redis": "^0.10.3",
-    "share": "0.6.3"
+    "ejs": "2.5.5",
+    "express": "4.14.0",
+    "redis": "0.10.3",
+    "share": "0.6.3",
+    "socket.io": "1.7.2",
+    "touch": "1.0.0"
   },
-  "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
-  }
+  "engines": {}
 }
