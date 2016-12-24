@@ -1,4 +1,4 @@
-/* server.js */
+#!/usr/bin/env node
 
 var fs = require('fs');
 var path = require('path');
@@ -7,6 +7,10 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var args = require('optimist').argv,
+
+var basePath = args.docBase;
+
 const DOC_PATH = '/docs/';
 
 // set the view engine to ejs
@@ -63,7 +67,7 @@ function pathToFileName(pathStr) {
 }
 
 function normalize(fileName) {
-  var paths = [__dirname, 'docs'];
+  var paths = [basePath, 'docs'];
   if (/\.md$/.test(fileName)) {
     paths.push(fileName);
   } else {

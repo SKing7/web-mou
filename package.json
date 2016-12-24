@@ -2,7 +2,7 @@
   "name": "web-mou",
   "description": "Markdown Docer",
   "main": "server.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/SKing7/web-mou"
@@ -16,6 +16,7 @@
   "dependencies": {
     "ejs": "2.5.5",
     "express": "4.14.0",
+    "optimist": "0.6.1",
     "redis": "0.10.3",
     "share": "0.6.3",
     "socket.io": "1.7.2",
