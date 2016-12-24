@@ -7,7 +7,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var args = require('optimist').argv,
+var args = require('optimist').argv;
 
 var basePath = args.docBase || process.cwd();
 
