@@ -9,12 +9,14 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var args = require('optimist').argv,
 
-var basePath = args.docBase;
+var basePath = args.docBase || process.cwd();
 
 const DOC_PATH = '/docs/';
 
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
 // public folder to store assets
 app.use(express.static(__dirname + '/public'));

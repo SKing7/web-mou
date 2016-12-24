@@ -2,7 +2,7 @@
   "name": "web-mou",
   "description": "Markdown Docer",
   "main": "server.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/SKing7/web-mou"
