@@ -61,6 +61,7 @@ io.on('connection', function (socket) {
 
 // listen on port 8000 (for localhost) or the port defined for heroku
 var port = process.env.PORT || 8000;
+console.log('http://http://0.0.0.0:' + port);
 server.listen(port);
 
 function pathToFileName(pathStr) {

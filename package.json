@@ -2,7 +2,7 @@
   "name": "web-mou",
   "description": "Markdown Docer",
   "main": "server.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/SKing7/web-mou"
@@ -33,6 +33,8 @@
   "directories": {
     "doc": "docs"
   },
-  "wmou": "server.js",
+  bin: {
+    "wmou": "server.js"
+  },
   "license": "ISC"
 }
