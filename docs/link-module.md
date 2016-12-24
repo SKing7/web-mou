@@ -15,7 +15,7 @@
   - 可选的模块有:[`project,customer,contract,approval`],多个选项使用`,`分隔
 - data-related:关联模块的数据对象
   - 必须
-  - 关联对象数据集合（须和同时使用的展示关联组件的related为同一对象）
+  - 关联对象数据集合（须和同时使用的展示关联组件的`data-related`为同一对象）
 
 ####展示关联组件：
 `<link-detail-list data-related="related" data-action="edit"></link-detail-list>`
