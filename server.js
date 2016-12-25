@@ -21,6 +21,9 @@ app.set('views', __dirname + '/views');
 // public folder to store assets
 app.use(express.static(__dirname + '/public'));
 
+app.get('/demo', function (req, res) {
+  res.render('demo');
+});
 // routes for app
 app.get(DOC_PATH + '(:name)', function (req, res) {
   var params = req.params;
@@ -29,7 +32,8 @@ app.get(DOC_PATH + '(:name)', function (req, res) {
   fs.readFile(normalize(params.name), function (err, data) {
     if (!err) {
       res.render('doc-creator', {
-        markdownContent: data
+        markdownContent: data,
+        filePath: filePath
       });
     } else {
       res.render('404');
@@ -37,6 +41,22 @@ app.get(DOC_PATH + '(:name)', function (req, res) {
   });
 });
 io.on('connection', function (socket) {
+  socket.on('uploadPasteImage', function (imageBase64Data) {
+    var base64Data = imageBase64Data.replace(/^data:image\/png;base64,/, "");
+    var getImageFileName = function () {
+      return (new Date().getTime() / 1000 + base64Data.slice(10, 15)) + '.png';
+    };
+    var fullImagePath = getImagesPath(getImageFileName());
+    touch(fullImagePath);
+    require("fs").writeFile(fullImagePath, base64Data, 'base64', function (err) {
+      if (err) {
+        socket.emit('imageUpload', {
+          status: 2,
+          msg: err.msg || '图片上传失败',
+        });
+      }
+    });
+  });
   socket.on('docSave', function (data) {
     var fileName = pathToFileName(data.path);
     var filePath = normalize(fileName);
@@ -64,6 +84,10 @@ var port = process.env.PORT || 8000;
 console.log('http://0.0.0.0:' + port + '/docs/');
 server.listen(port);
 
+function getImagesPath(fileName) {
+  return [basePath, DOC_PATH, 'images', fileName].join(path.sep);
+}
+
 function pathToFileName(pathStr) {
   pathStr = pathStr.replace(new RegExp('^' + DOC_PATH), '');
   return pathStr;
@@ -76,7 +100,7 @@ function normalize(fileName) {
   } else {
     paths.push(fileName + '.md');
   }
-  return paths.join('/');
+  return paths.join(path.sep);
 }
 
 function saveToFile(filePath, content) {

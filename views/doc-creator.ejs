@@ -6,17 +6,28 @@
     <link href="/style.css" rel="stylesheet">
 </head>
 
-<body class="container-fluid">
-
-    <div id="j-save-status"></div>
+<body>
+  <div id="j-menu" class="menu-wrapper">
+    <span class="menu__path mr10">当前文件：<span class="weaken-color"><%= filePath %></span></span>
+    <span class="mr5">
+      <input type="checkbox" id="j-menu-autosave" class="mr2"/>
+      <label for="j-menu-autosave">自动保存</label>
+    </span>
+    <button class="mr5" id="j-menu-save-btn" type="button">保存</button>
+    <span id="j-save-status"></span>
+    <a href="/demo" class="right-menu" target="doc-demo">Markdown常用语法</a>
+  </div>
+  <div class="container-fluid full-height">
     <section class="row">
         <textarea class="col-md-6 full-height" id="pad"><%= markdownContent %></textarea>
         <div class="col-md-6 full-height" id="markdown"></div>
     </section>
+  </div>
 
-    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/creator.js"></script>
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/clipboard.js"></script>
+  <script src="/creator.js"></script>
 
 </body>
 </html>
