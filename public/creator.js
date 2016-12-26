@@ -40,9 +40,9 @@
     $$$('#j-menu-save-btn')[0].addEventListener('click', function () {
       save();
     });
-    $$$('#j-open-file')[0].addEventListener('click', function () {
-      socket.emit('fetchDocList');
-    });
+    // $$$('#j-open-file')[0].addEventListener('click', function () {
+    //   socket.emit('fetchDocList');
+    // });
   }
 
   function checkAutoSave(ndTarget) {

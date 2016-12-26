@@ -1,5 +1,5 @@
 var fs = require('fs');
-var config = require('config');
+var config = require('../config');
 var path = require('path');
 var touch = require('touch');
 
