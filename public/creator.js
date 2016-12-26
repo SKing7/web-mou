@@ -32,7 +32,7 @@
     bindkeydown();
     bindSocket();
 
-    pad.addEventListener('change', convertTextAreaToMarkdown);
+    pad.addEventListener('input', convertTextAreaToMarkdown);
 
     $$$('#j-menu-autosave')[0].addEventListener('change', function (e) {
       checkAutoSave(e.target);
