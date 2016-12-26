@@ -30,16 +30,9 @@
 
   function bindEvent() {
     bindkeydown();
+    bindSocket();
 
-    pad.addEventListener('input', convertTextAreaToMarkdown);
-
-    socket.on('docSaveDone', function (data) {
-      updateSaveStatus(data.status);
-      window.setTimeout(function () {
-        updateSaveStatus();
-      }, 1500);
-    });
-
+    pad.addEventListener('change', convertTextAreaToMarkdown);
 
     $$$('#j-menu-autosave')[0].addEventListener('change', function (e) {
       checkAutoSave(e.target);
@@ -47,9 +40,8 @@
     $$$('#j-menu-save-btn')[0].addEventListener('click', function () {
       save();
     });
-    window.clipboardUtil.uploadWhenPaste(pad, function (e) {
-      debugger
-      socket.emit('uploadPasteImage', e.target.result);
+    $$$('#j-open-file')[0].addEventListener('click', function () {
+      socket.emit('fetchDocList');
     });
   }
 
@@ -60,6 +52,52 @@
     } else if (!checked && autoSaveInterval) {
       window.clearInterval(autoSaveInterval);
     }
+  }
+
+  function updateImageUploadStatus(res) {
+    var data = res.data;
+    var status = res.status;
+    var labelInMd = '[此处图片(' + data.name + ')上传中...]';
+
+    if (status === SUCCESS) {
+      pad.value = pad.value.replace(labelInMd, '![Image](' + data.webPath + ')');
+    } else if (status === FAIL) {
+      pad.value = pad.value.replace(labelInMd, '[图片上传失败]');
+    } else {
+      pad.insertAtCursor(labelInMd);
+    }
+    convertTextAreaToMarkdown();
+  }
+
+  function bindSocket() {
+    socket.on('docSaveDone', function (data) {
+      updateSaveStatus(data.status);
+      window.setTimeout(function () {
+        updateSaveStatus();
+      }, 1500);
+    });
+
+    socket.on('imageUploadDone', function (res) {
+      updateImageUploadStatus(res)
+    });
+
+    socket.on('fetchDocListDone', function (res) {
+      console.log(res);
+    });
+
+    window.clipboardUtil.uploadWhenPaste(pad, function (e) {
+      var fileName = (new Date().getTime() + '' + ((Math.random() * 1000) | 0)) + '.png'
+      updateImageUploadStatus({
+        status: PENDING,
+        data: {
+          name: fileName
+        }
+      })
+      socket.emit('uploadPasteImage', {
+        name: fileName,
+        base64Data: e.target.result
+      });
+    });
   }
 
   function bindAutoSave() {
@@ -113,6 +151,21 @@
     });
   }
 
+  function updatePadUploadStatus(status) {
+    if (status === PENDING) {
+      id.innerHTML = '保存中...';
+      id.classList.add('save-pending');
+    } else if (status === SUCCESS) {
+      id.innerHTML = '保存成功';
+      id.classList.add('save-success');
+    } else if (status === FAIL) {
+      id.innerHTML = '保存失败';
+      id.classList.add('save-fail');
+    } else {
+      id.innerHTML = '';
+    }
+  }
+
   function updateSaveStatus(status) {
     var id = $$$('#j-save-status')[0];
     id.classList = [];
@@ -142,5 +195,18 @@
   function getPath() {
     var pathName = document.location.pathname;
     return pathName
+  }
+  HTMLTextAreaElement.prototype.insertAtCursor = function (targetValue) {
+    var $t = this;
+    if ($t.selectionStart || $t.selectionStart == '0') {
+      var startPos = $t.selectionStart;
+      var endPos = $t.selectionEnd;
+
+      $t.value = $t.value.substring(0, startPos) + targetValue + $t.value.substring(endPos, $t.value.length);
+      this.focus();
+    } else {
+      $t.value += targetValue;
+      $t.focus();
+    }
   }
 }()

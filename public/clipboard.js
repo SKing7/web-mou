@@ -1,6 +1,7 @@
 window.clipboardUtil = {
   uploadWhenPaste: function (ndTarget, cb) {
     ndTarget.addEventListener("paste", function (e) {
+      e.preventDefault();
       var cbd = e.clipboardData;
       var reader;
 

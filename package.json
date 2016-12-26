@@ -14,8 +14,10 @@
   ],
   "author": "sking.pt <sking.pt@gmail.com>",
   "dependencies": {
+    "config": "1.24.0",
     "ejs": "2.5.5",
     "express": "4.14.0",
+    "glob": "7.1.1",
     "optimist": "0.6.1",
     "redis": "0.10.3",
     "share": "0.6.3",
