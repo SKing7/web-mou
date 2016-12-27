@@ -15,18 +15,31 @@
   "author": "sking.pt <sking.pt@gmail.com>",
   "dependencies": {
     "config": "1.24.0",
+    "css-loader": "0.26.1",
     "ejs": "2.5.5",
     "express": "4.14.0",
     "glob": "7.1.1",
+    "html-loader": "0.4.4",
+    "imports-loader": "0.7.0",
+    "npm-run-all": "3.1.2",
     "optimist": "0.6.1",
     "redis": "0.10.3",
     "share": "0.6.3",
+    "showdown": "1.5.4",
     "socket.io": "1.7.2",
-    "touch": "1.0.0"
+    "style-loader": "0.13.1",
+    "touch": "1.0.0",
+    "webpack": "1.14.0",
+    "webpack-dev-server": "1.16.2",
+    "webpack-hot-middleware": "2.14.0",
+    "yargs": "6.5.0"
   },
   "engines": {},
   "scripts": {
-    "start": "node server.js"
+    "start": "npm-run-all --parallel dev:server dev:app",
+    "dev:app": "webpack-dev-server --hot",
+    "dev:server": "./server.js",
+    "build": "webpack -p"
   },
   "bugs": {
     "url": "https://github.com/SKing7/web-mou/issues"
@@ -38,5 +51,14 @@
   "bin": {
     "wmou": "server.js"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "6.21.0",
+    "babel-loader": "6.2.10",
+    "babel-plugin-transform-object-rest-spread": "6.20.2",
+    "babel-plugin-transform-runtime": "6.15.0",
+    "babel-preset-es2015": "6.18.0",
+    "babel-runtime": "6.20.0",
+    "webpack": "1.14.0"
+  }
 }

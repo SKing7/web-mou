@@ -1,4 +1,4 @@
-~ function () {
+module.exports = function () {
   window.poplist = function (ele, data) {
     var html = '<ul>';
     data.forEach(function (v) {
@@ -8,4 +8,4 @@
     ele.appendChild(html);
     return html;
   }
-}();
+}(

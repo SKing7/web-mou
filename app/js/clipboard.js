@@ -1,4 +1,4 @@
-window.clipboardUtil = {
+export default {
   uploadWhenPaste: function (ndTarget, cb) {
     ndTarget.addEventListener("paste", function (e) {
       e.preventDefault();

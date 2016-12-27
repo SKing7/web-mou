@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html class="tree-open">
 <head>
     <title>Markdown Doc Creator</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/style.css" rel="stylesheet">
 </head>
 
 <body>
+  <nav class="tree-sidebar">
+    <a class="tree-toggle">
+        <span></span>
+    </a>
+    <div class="tree-view">
+    </div>
+  </nav>
   <div id="j-menu" class="menu-wrapper">
-    <!-- <span class="mr10" id="j-open-file">File</span> -->
+    <span class="mr10" id="j-open-file">File</span>
     <span class="menu__path mr10">当前文件：<span class="weaken-color"><%= filePath %></span></span>
     <span class="mr5">
       <input type="checkbox" id="j-menu-autosave" class="mr2"/>
@@ -25,10 +31,7 @@
     </section>
   </div>
 
-  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/clipboard.js"></script>
-  <script src="/creator.js"></script>
-
+  <script src="http://0.0.0.0:8081/build.js"></script>
 </body>
 </html>

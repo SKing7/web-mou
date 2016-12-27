@@ -66,5 +66,10 @@ module.exports = {
   },
   getDocImagesPath: function (fileName) {
     return path.join(ROOT_PATH, DOC_IMAGE_PATH, fileName || '');
-  }
+  },
+  getDocWebPath: function (fileName) {
+    var HOST = config.get('web.host');
+    var PORT = config.get('web.port');
+    return 'http://' + [HOST + ':' + PORT, DOC_PATH, fileName || ''].join('/').replace(/\/\//g, '/');
+  },
 };
