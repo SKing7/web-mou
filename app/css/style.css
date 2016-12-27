@@ -27,9 +27,16 @@ html, body, section, .full-height {
 }
 
 .menu-wrapper {
+  height: 35px;
   padding: 5px 15px;
   background-color: #f4f4f4;
   overflow: hidden;
+}
+.menu__path {
+  margin-left: 30px;
+}
+.tree-open .menu__path {
+  margin-left: 0;
 }
 .right-menu {
   float: right;

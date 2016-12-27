@@ -1,12 +1,12 @@
 import {
   instance
 } from './socket'
+const socket = instance();
 
 import {
   updateSaveStatus,
 } from './util'
 
-const socket = instance();
 export default {
 
   init: function () {

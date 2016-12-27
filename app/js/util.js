@@ -68,6 +68,7 @@ function getPath() {
 }
 
 export function saveDoc() {
+  debugger
   socket.emit('docSave', {
     path: getPath(),
     content: pad.value

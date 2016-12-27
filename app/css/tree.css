@@ -11,7 +11,11 @@ html.tree-open {
   position: fixed;
   overflow: visible;
   border-right: 1px solid rgb(221, 221, 221);
+  transform: translate3d(-100%, 0px, 0px);
   transition: transform 0.2s ease;
+}
+.tree-open {
+  transform: translate3d(0, 0px, 0px);
 }
 .tree-view {
   height: 100%;
@@ -19,6 +23,47 @@ html.tree-open {
   background-color: rgb(247, 247, 247);
 }
 
-.tree-toggole > span:after {
-  content: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20height%3D%2216%22%20width%3D%228%…-1.5-1.5%203.75-3.5L1%204.5l1.5-1.5%205%205z%22%20%2F%3E%0A%3C%2Fsvg%3E%0A)
+.tree-header {
+  height: 35px;
+  background-color: rgb(243, 243, 243);
+  background-image: linear-gradient(rgb(249, 249, 249), rgb(243, 243, 243));
+  background-repeat: repeat-x;
+  border-bottom: 1px solid rgb(229, 229, 229);
+}
+.tree-open .tree-toggle {
+  right: 4px;
+}
+.tree-toggle {
+  position: absolute;;
+  width: 26px;
+  height: 26px;
+  right: -35px;
+  top: 4px;
+  padding: 4px !important;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  text-align: center;
+}
+.tree-toggle span {
+  display: inline-block;
+  line-height: 1;
+}
+.tree-toggle > span:after {
+  content: url('data:image/svg+xml;charset=UTF-8,<svg height="16" width="8" xmlns="http://www.w3.org/2000/svg"> <path d="M7.5 8L2.5 13l-1.5-1.5 3.75-3.5L1 4.5l1.5-1.5 5 5z" /></svg>');
+}
+.tree-open .tree-toggle > span:after {
+  content: url('data:image/svg+xml;charset=UTF-8,<svg height="16" width="8" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 3l1.5 1.5-3.75 3.5 3.75 3.5-1.5 1.5L0.5 8l5-5z" /> </svg>');
+}
+
+.tree-header icon-file:before {
+  content: url('data:image/svg+xml;charset=UTF-8,<svg style="fill: #777" height="16" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z" /></svg>');
 }
