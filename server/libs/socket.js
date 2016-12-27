@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var touch = require('touch');
-var config = require('../config');
+var config = require('../../config');
 var glob = require("glob")
 var util = require('./util');
 

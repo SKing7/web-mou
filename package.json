@@ -38,7 +38,7 @@
   "scripts": {
     "start": "npm-run-all --parallel dev:server dev:app",
     "dev:app": "webpack-dev-server --hot",
-    "dev:server": "./server.js",
+    "dev:server": "./server/main.js",
     "build": "webpack -p"
   },
   "bugs": {
