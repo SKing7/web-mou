@@ -1,6 +1,11 @@
+import {
+  $
+} from './dom'
+const pad = $('#pad')[0];
+
 export default {
-  uploadWhenPaste: function (ndTarget, cb) {
-    ndTarget.addEventListener("paste", function (e) {
+  uploadWhenPaste: function (cb) {
+    pad.addEventListener("paste", function (e) {
       e.preventDefault();
       var cbd = e.clipboardData;
       var reader;
