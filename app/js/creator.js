@@ -4,7 +4,6 @@ import bindDom from './bindDOM';
 import {
   $
 } from './dom'
-
 import {
   updateImageUploadStatus,
   updateSaveStatus,
@@ -16,8 +15,6 @@ import {
   instance as socket
 } from './socket'
 
-
-// convert text area to markdown html
 
 function bindEvent() {
   bindDom.init();

@@ -17,9 +17,13 @@ var FAIL = socketStatus.FAIL;
 module.exports = function (io) {
   io.on('connection', function (socket) {
     socket.on('fetchDocList', function (res) {
+      var rootPath = util.getDocRootPath();
       glob(util.getDocRootPath() + '/**/*.md', function (err, files) {
         socket.emit('fetchDocListDone', {
-          data: util.docFullPathToRelative(files)
+          data: {
+            root: rootPath,
+            items: util.docFullPathToRelative(files)
+          }
         });
       });
     });

@@ -1,8 +1,8 @@
 html.tree-open {
-  margin-left: 230px;
+  margin-left: 250px;
 }
 .tree-sidebar {
-  width: 230px;
+  width: 250px;
   top: 0px;
   right: 0px;
   left: 0px;
@@ -17,14 +17,24 @@ html.tree-open {
 .tree-open {
   transform: translate3d(0, 0px, 0px);
 }
+.j-tree-title {
+  padding-left: 5px;
+  line-height: 35px;
+  overflow: hidden;
+}
+
 .tree-view {
   height: 100%;
-  padding-top: 49px;
+  padding-top: 35px;
   background-color: rgb(247, 247, 247);
 }
 
 .tree-header {
   height: 35px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
   background-color: rgb(243, 243, 243);
   background-image: linear-gradient(rgb(249, 249, 249), rgb(243, 243, 243));
   background-repeat: repeat-x;
@@ -64,6 +74,48 @@ html.tree-open {
   content: url('data:image/svg+xml;charset=UTF-8,<svg height="16" width="8" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 3l1.5 1.5-3.75 3.5 3.75 3.5-1.5 1.5L0.5 8l5-5z" /> </svg>');
 }
 
-.tree-header icon-file:before {
+.tree-view .icon-file {
+  position: relative;
+  display: inline-block;
+  margin-right: 3px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  vertical-align: middle;
+}
+.tree-view li a {
+  position: relative;
+  font-style: normal;
+  text-decoration: none;
+}
+.tree-view li a:hover {
+  text-decoration: none;
+}
+.tree-view .icon-file:before {
   content: url('data:image/svg+xml;charset=UTF-8,<svg style="fill: #777" height="16" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z" /></svg>');
+}
+.tree-view ul {
+  margin: 0;
+  padding: 0;
+}
+.tree-view li.active .whole-row {
+  width: 100%;
+  position: absolute;
+  left:0;
+  height: 24px;
+  background: rgb(219, 238, 255);
+}
+.tree-view li {
+  display: block;
+  margin: 0px;
+  margin-left: 12px;
+  padding: 0px;
+  color: rgb(65, 131, 196);
+  line-height: 24px;
+  list-style-type: none;
+  list-style-image: none;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
 }

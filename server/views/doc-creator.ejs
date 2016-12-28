@@ -8,11 +8,13 @@
 <body>
   <nav class="tree-sidebar">
     <div class="tree-header">
+      <span class="j-tree-title">文件列表</span>
       <a class="j-tree-toggle tree-toggle">
           <span></span>
       </a>
     </div>
-    <div class="tree-view"></div>
+    <div class="j-tree-view tree-view">
+    </div>
   </nav>
   <div id="j-menu" class="menu-wrapper">
     <span class="menu__path mr10">当前文件：<span class="weaken-color"><%= filePath %></span></span>
@@ -32,6 +34,7 @@
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="http://0.0.0.0:8081/build.js"></script>
+  <script src="/build.js"></script>
+  <!-- <script src="http://0.0.0.0:8081/build.js"></script> -->
 </body>
 </html>

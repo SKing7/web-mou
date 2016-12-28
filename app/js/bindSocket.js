@@ -1,6 +1,10 @@
 import {
   instance
 } from './socket'
+import {
+  updateTree
+} from './dom'
+
 const socket = instance();
 
 import {
@@ -22,7 +26,7 @@ export default {
     });
 
     socket.on('fetchDocListDone', function (res) {
-      console.log(res);
+      updateTree(res.data)
     });
   }
 }

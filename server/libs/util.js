@@ -17,7 +17,7 @@ module.exports = {
   docFullPathToRelative: function (docs) {
     var prefix = this.getDocRootPath();
     return docs.map(function (v, i) {
-      v = v.replace(prefix, '')
+      v = v.replace(prefix + path.sep, '')
       return v;
     });
   },

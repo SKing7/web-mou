@@ -6,13 +6,12 @@ import {
   instance
 } from './socket'
 
-var socket = instance();
 import showdown from 'showdown';
-
 var PENDING = 0;
 var SUCCESS = 1;
 var FAIL = 2;
 
+const socket = instance();
 const pad = $('#pad')[0];
 const markdownArea = $('#markdown')[0];
 const converter = new showdown.Converter();
@@ -67,8 +66,28 @@ function getPath() {
   return pathName
 }
 
+export function getCurFileName(items) {
+  var pathName = getPath();
+
+  if (/\/$/.test(pathName)) {
+    pathName = pathName.slice(0, -1);
+  }
+
+  if (!/\.md$/.test(pathName)) {
+    pathName += '.md';
+  }
+
+
+  var vv = '';
+  items.some(function (v) {
+    if (new RegExp(v + '$').test(pathName)) {
+      vv = v;
+    }
+  })
+  return vv;
+}
+
 export function saveDoc() {
-  debugger
   socket.emit('docSave', {
     path: getPath(),
     content: pad.value

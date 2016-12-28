@@ -8,7 +8,6 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var args = require('optimist').argv;
 var socketInit = require('./libs/socket');
 var util = require('./libs/util');
 var glob = require("glob")
@@ -19,6 +18,7 @@ var DOC_PATH = config.get('doc.path')
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/../dist'))
 app.set('views', __dirname + '/views');
 
 // public folder to store assets
@@ -33,23 +33,14 @@ app.get(config.get('web.imagePath') + '/(:name)', function (req, res) {
   res.sendFile(fullImagePath);
 })
 
-app.get(DOC_PATH, function (req, res) {
-  glob(util.getDocRootPath() + '/**/*.md', function (err, files) {
-    var data = util.docFullPathToRelative(files);
-    data = data.map(function (f) {
-      return {
-        name: f,
-        url: util.getDocWebPath(f),
-      };
-    });
-    res.render('index', {
-      markdownFiles: data
-    });
-  });
-});
 // routes for app
 app.get(DOC_PATH + '/(:name)', function (req, res) {
   var params = req.params;
+  var name = params.name;
+  if (!checkDocUrl(name)) {
+    res.render('404');
+    return;
+  }
   var filePath = util.normalizeDoc(params.name);
   touch(filePath);
   fs.readFile(filePath, function (err, data) {
@@ -63,8 +54,31 @@ app.get(DOC_PATH + '/(:name)', function (req, res) {
     }
   });
 });
+app.use(function(req, res, next){
+  res.status(404);
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('404', { url: req.url });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
 
 socketInit(io);
+
+function checkDocUrl(name) {
+    var arr = name.split('.');
+    if (arr.length === 1 || arr[arr.length - 1] === 'md') {
+        return true;
+    }
+}
 
 // listen on port 8000 (for localhost) or the port defined for heroku
 var port = config.get('web.port') || 8000;
