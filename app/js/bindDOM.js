@@ -31,9 +31,8 @@ export default {
       }
       ndHtml.classList.toggle('tree-open');
     });
-    $('.j-tree-view')[0].addEventListener('click', function (e) {
+    $('.j-tree-view')[0].addEventListener('hover', function (e) {
       var ndTarget = e.target;
-      if (ndTarget.nodeName === 'A') {}
     });
 
     // make the tab act l ike a tab

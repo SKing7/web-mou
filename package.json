@@ -2,7 +2,7 @@
   "name": "web-mou",
   "description": "Markdown Docer",
   "main": "server.js",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/SKing7/web-mou"
@@ -18,13 +18,14 @@
     "express": "4.14.0",
     "glob": "7.1.1",
     "socket.io": "1.7.2",
-    "touch": "1.0.0"
+    "touch": "1.0.0",
+    "yargs": "6.5.0"
   },
   "engines": {},
   "scripts": {
-    "start": "npm-run-all --parallel dev:server dev:app",
-    "dev:app": "webpack-dev-server --hot",
-    "dev:server": "./server/main.js",
+    "dev": "npm-run-all --parallel dev-server dev-app",
+    "dev-app": "webpack-dev-server --hot",
+    "dev-server": "./server/main.js --dev",
     "build": "webpack -p",
     "prepublish": "webpack --prod"
   },

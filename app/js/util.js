@@ -80,7 +80,7 @@ export function getCurFileName(items) {
 
   var vv = '';
   items.some(function (v) {
-    if (new RegExp(v + '$').test(pathName)) {
+    if (new RegExp( '/' + v + '$').test(pathName)) {
       vv = v;
     }
   })

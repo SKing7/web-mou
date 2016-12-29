@@ -11,15 +11,19 @@ var io = require('socket.io')(server);
 var socketInit = require('./libs/socket');
 var util = require('./libs/util');
 var glob = require("glob")
+var argv = require('yargs').argv;
 
 var ROOT_PATH = config.get('root')
 var DOC_PATH = config.get('doc.path')
-
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/../dist'))
 app.set('views', __dirname + '/views');
+
+var PAGE_ENV = {
+  dev: argv.dev
+}
 
 // public folder to store assets
 
@@ -47,7 +51,8 @@ app.get(DOC_PATH + '/(:name)', function (req, res) {
     if (!err) {
       res.render('doc-creator', {
         markdownContent: data,
-        filePath: filePath
+        filePath: filePath,
+        env: PAGE_ENV
       });
     } else {
       res.render('404');

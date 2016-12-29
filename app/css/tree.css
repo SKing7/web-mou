@@ -88,6 +88,8 @@ html.tree-open {
   position: relative;
   font-style: normal;
   text-decoration: none;
+  display: inline-block;
+  line-height: 24px;
 }
 .tree-view li a:hover {
   text-decoration: none;
