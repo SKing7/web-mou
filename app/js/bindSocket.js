@@ -4,6 +4,9 @@ import {
 import {
   updateTree
 } from './dom'
+import {
+  updateImageUploadStatus,
+} from './util'
 
 const socket = instance();
 

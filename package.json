@@ -2,7 +2,7 @@
   "name": "web-mou",
   "description": "Markdown Docer",
   "main": "server.js",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/SKing7/web-mou"
@@ -47,12 +47,15 @@
     "babel-plugin-transform-runtime": "6.15.0",
     "babel-preset-es2015": "6.18.0",
     "babel-runtime": "6.20.0",
+    "bootstrap": "3.3.7",
     "css-loader": "0.26.1",
-    "webpack-dev-server": "1.16.2",
-    "webpack-hot-middleware": "2.14.0",
+    "file-loader": "0.9.0",
     "npm-run-all": "3.1.2",
     "showdown": "1.5.4",
     "style-loader": "0.13.1",
-    "webpack": "1.14.0"
+    "url-loader": "0.5.7",
+    "webpack": "1.14.0",
+    "webpack-dev-server": "1.16.2",
+    "webpack-hot-middleware": "2.14.0"
   }
 }

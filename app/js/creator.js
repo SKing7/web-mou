@@ -12,8 +12,13 @@ import {
 } from './util'
 
 import {
-  instance as socket
+  instance
 } from './socket'
+
+const socket = instance();
+var PENDING = 0;
+var SUCCESS = 1;
+var FAIL = 2;
 
 
 function bindEvent() {
