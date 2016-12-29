@@ -1,6 +1,7 @@
 import clipboardUtil from './clipboard';
 import bindSocket from './bindSocket';
 import bindDom from './bindDOM';
+import config from '../../config';
 import {
   $
 } from './dom'
@@ -15,11 +16,9 @@ import {
   instance
 } from './socket'
 
+const socketStatus = config.get('socketStatus'); 
+const { PENDING, SUCCESS,  FAIL } = socketStatus;
 const socket = instance();
-var PENDING = 0;
-var SUCCESS = 1;
-var FAIL = 2;
-
 
 function bindEvent() {
   bindDom.init();

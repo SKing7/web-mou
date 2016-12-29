@@ -6,7 +6,6 @@ const pad = $('#pad')[0];
 export default {
   uploadWhenPaste: function (cb) {
     pad.addEventListener("paste", function (e) {
-      e.preventDefault();
       var cbd = e.clipboardData;
       var reader;
 
@@ -18,6 +17,7 @@ export default {
       for (var i = 0; i < cbd.items.length; i++) {
         var item = cbd.items[i];
         if (item.kind == "file" && /^image/.test(item.type)) {
+          e.preventDefault();
           reader = new FileReader();
           reader.onload = cb;
           reader.readAsDataURL(item.getAsFile());

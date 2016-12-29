@@ -1,3 +1,5 @@
+var ip = require('ip');
+
 var defaultConfig = {
   root: process.cwd(),
   doc: {
@@ -5,8 +7,8 @@ var defaultConfig = {
     imagePath: '/docs/images',
   },
   web: {
-    port: 8000,
-    host: '0.0.0.0',
+    port: 8001,
+    host: ip.address(),
     imagePath: '/doc-images',
   },
   socketStatus: {

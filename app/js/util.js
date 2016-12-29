@@ -7,10 +7,10 @@ import {
 } from './socket'
 
 import showdown from 'showdown';
-var PENDING = 0;
-var SUCCESS = 1;
-var FAIL = 2;
+import config from '../../config';
 
+const socketStatus = config.get('socketStatus'); 
+const { PENDING, SUCCESS,  FAIL } = socketStatus;
 const socket = instance();
 const pad = $('#pad')[0];
 const markdownArea = $('#markdown')[0];
@@ -134,3 +134,4 @@ export function convertTextAreaToMarkdown() {
   var html = converter.makeHtml(markdownText);
   markdownArea.innerHTML = html;
 };
+
