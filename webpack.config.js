@@ -14,8 +14,10 @@ var args = require('yargs').argv;
 // parameters
 var isProd = args.prod;
 var plugins = [];
-var entry = ["./app/index.js"];
-
+var entry = {
+  index: './app/index.js',
+  demo: './app/demoIndex.js',
+};
 
 if (isProd) {
   plugins.push(
@@ -30,7 +32,7 @@ if (isProd) {
     new webpack.optimize.OccurenceOrderPlugin()
   );
 } else {
-  entry.unshift('webpack-dev-server/client?http://0.0.0.0:8081');
+  entry.debug = 'webpack-dev-server/client?http://0.0.0.0:8081';
   plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
@@ -39,7 +41,7 @@ module.exports = {
   plugins: plugins,
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "build.js"
+    filename: "[name].build.js"
   },
   module: {
     loaders: [{
@@ -50,12 +52,19 @@ module.exports = {
       test: /\.css$/,
       exclude: /\.useable\.css$/,
       loader: "style-loader!css-loader"
-    },
-    { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-    { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
-    { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-    { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-    ]
+    }, {
+      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      loader: "file"
+    }, {
+      test: /\.(woff|woff2)$/,
+      loader: "url?prefix=font/&limit=5000"
+    }, {
+      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+      loader: "url?limit=10000&mimetype=application/octet-stream"
+    }, {
+      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+      loader: "url?limit=10000&mimetype=image/svg+xml"
+    }, ]
   },
   devServer: {
     contentBase: 'public',

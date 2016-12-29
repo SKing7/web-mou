@@ -28,7 +28,9 @@ var PAGE_ENV = {
 // public folder to store assets
 
 app.get('/demo', function (req, res) {
-  res.render('demo');
+  res.render('demo', {
+    env: PAGE_ENV
+  });
 });
 app.get(config.get('web.imagePath') + '/(:name)', function (req, res) {
   var params = req.params;
@@ -59,17 +61,21 @@ app.get(DOC_PATH + '/(:name)', function (req, res) {
     }
   });
 });
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
   res.status(404);
   // respond with html page
   if (req.accepts('html')) {
-    res.render('404', { url: req.url });
+    res.render('404', {
+      url: req.url
+    });
     return;
   }
 
   // respond with json
   if (req.accepts('json')) {
-    res.send({ error: 'Not found' });
+    res.send({
+      error: 'Not found'
+    });
     return;
   }
   // default to plain-text. send()
@@ -79,10 +85,10 @@ app.use(function(req, res, next){
 socketInit(io);
 
 function checkDocUrl(name) {
-    var arr = name.split('.');
-    if (arr.length === 1 || arr[arr.length - 1] === 'md') {
-        return true;
-    }
+  var arr = name.split('.');
+  if (arr.length === 1 || arr[arr.length - 1] === 'md') {
+    return true;
+  }
 }
 
 // listen on port 8000 (for localhost) or the port defined for heroku
