@@ -74,11 +74,6 @@ I think you should use an
         </textarea>
         <div class="col-md-6 full-height" id="markdown"></div>
     </section>
-    <script src="/socket.io/socket.io.js"></script>
-    <% if (env.dev) { %>
-    <script src="http://0.0.0.0:8081/demo.build.js"></script>
-    <% } else { %>
-    <script src="/demo.build.js"></script>
-    <% } %>
+    <%- include('./foot', {name: 'demo'}) %>
 </body>
 </html>

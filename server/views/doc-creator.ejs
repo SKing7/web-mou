@@ -32,11 +32,6 @@
     </section>
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <% if (env.dev) {%>
-  <script src="http://0.0.0.0:8081/index.build.js"></script>
-  <% } else {%>
-  <script src="/index.build.js"></script>
-  <% } %>
+  <%- include('./foot', {name: 'index'}) %>
 </body>
 </html>

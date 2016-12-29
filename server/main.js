@@ -10,10 +10,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var socketInit = require('./libs/socket');
 var util = require('./libs/util');
-var glob = require("glob")
 var argv = require('yargs').argv;
 
-var ROOT_PATH = config.get('root')
 var DOC_PATH = config.get('doc.path')
 
 // set the view engine to ejs
@@ -21,15 +19,20 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/../dist'))
 app.set('views', __dirname + '/views');
 
-var PAGE_ENV = {
-  dev: argv.dev
+
+var buildJsHost = '/';
+if (argv.dev) {
+  buildJsHost = 'http://0.0.0.0:8081/';
 }
 
+var env = {
+  buildJsHost: buildJsHost
+};
 // public folder to store assets
 
 app.get('/demo', function (req, res) {
   res.render('demo', {
-    env: PAGE_ENV
+    env: env,
   });
 });
 app.get(config.get('web.imagePath') + '/(:name)', function (req, res) {
@@ -54,7 +57,7 @@ app.get(DOC_PATH + '/(:name)', function (req, res) {
       res.render('doc-creator', {
         markdownContent: data,
         filePath: filePath,
-        env: PAGE_ENV
+        env: env
       });
     } else {
       res.render('404');
