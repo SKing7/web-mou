@@ -39,3 +39,5 @@ jspm_packages
 docs/*
 
 .DS_Store
+
+dist
