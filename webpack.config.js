@@ -4,6 +4,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var configJson = require('./package.json');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 /**
  * Env
@@ -19,6 +20,8 @@ var entry = {
   demo: './app/demoIndex.js',
 };
 
+
+plugins.push(new ExtractTextPlugin("core.build.css"));
 if (isProd) {
   plugins.push(
     new webpack.NoErrorsPlugin(),
@@ -32,7 +35,6 @@ if (isProd) {
     new webpack.optimize.OccurenceOrderPlugin()
   );
 } else {
-  entry.debug = 'webpack-dev-server/client?http://0.0.0.0:8081';
   plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
@@ -45,13 +47,12 @@ module.exports = {
   },
   module: {
     loaders: [{
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+    }, {
       test: /\.js$/,
       loader: 'babel',
       exclude: /node_modules/
-    }, {
-      test: /\.css$/,
-      exclude: /\.useable\.css$/,
-      loader: "style-loader!css-loader"
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
       loader: "file"
